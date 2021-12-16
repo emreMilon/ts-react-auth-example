@@ -1,5 +1,5 @@
 import React from "react";
-//import LoginPass from "./auth/LoginPass";
+import LoginPass from "./auth/LoginPass";
 import { Link } from "react-router-dom";
 
 const Login = () => {
@@ -7,7 +7,7 @@ const Login = () => {
     <div className="auth_page" id="login">
       <div className="auth_box">
         <h3 className="text-uppercase text-center mb-4">Login</h3>
-        {/* /<LoginPass /> */}
+         <LoginPass />
         <small className="row my-2 text-primary" style={{ cursor: "pointer" }}>
           <p>
             <Link to="/forgot_password" className="col-6">
