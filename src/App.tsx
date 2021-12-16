@@ -15,7 +15,7 @@ const App = () => {
         <Switch>
           <Route exact path="/" component={PageRender} />
           <Route exact path="/:page" component={PageRender} />
-          <Route exact path="/:page/:slug" component={PageRender} />
+          <Route exact path="/:page/:id" component={PageRender} />
         </Switch>
 
         <Footer/>

@@ -18,6 +18,15 @@ export interface IUserLogin {
   password: string
 }
 
+export interface IUserRegister extends IUserLogin {
+  userId: string
+  firstName: string
+  lastName: string
+  position: string
+  passwordConfirmation: string
+}
+
+
 export interface IUser extends IUserLogin {
   userId: string
   firstName: string
@@ -31,4 +40,9 @@ export interface IAlert {
   loading?: boolean
   success?: string | string[]
   errors?: string | string[]
+}
+
+export interface ICheck {
+  errMsg?: string[],
+  errLength? : number
 }

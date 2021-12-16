@@ -44,6 +44,7 @@ const LoginPass = () => {
           name="email"
           value={email}
           onChange={handleChangeInput}
+          placeholder="Please insert your email"
         />{" "}
       </div>
       <div className="form-group mb-3 ">
@@ -59,6 +60,7 @@ const LoginPass = () => {
             name="password"
             value={password}
             onChange={handleChangeInput}
+            placeholder="Please insert your password"
           />{" "}
           <small onClick={handleTypePass}> {typePass ? "Hide" : "Show"} </small>{" "}
         </div>{" "}

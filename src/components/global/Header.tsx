@@ -3,8 +3,8 @@ import { NavLink, } from "react-router-dom";
 const Navbar = () => {
 
   
-  let page = window.location.pathname
-  console.log(page)
+  let page =   window.location.pathname
+
 
 
   return (
@@ -37,11 +37,11 @@ const Navbar = () => {
               </NavLink>
             </li>
             {
-              page === "/"  &&   <li className="nav-item">
+              page === "/"  ?   <li className="nav-item">
               <a className="nav-link" href="#login">
                 Login
               </a>
-            </li> 
+            </li> : null
             }
           
             {/* <li className="nav-item">
