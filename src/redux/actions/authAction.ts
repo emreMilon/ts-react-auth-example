@@ -3,7 +3,7 @@ import { AUTH, IAuthType } from "../types/authType";
 import { ALERT, IAlertType } from "../types/alertType";
 
 import { IUserLogin, IUserRegister } from "../../utils/TypeScript";
-import { postAPI } from "../../utils/FetchData";
+import { postAPI, getAPI } from "../../utils/FetchData";
 import { validRegister } from "../../utils/Valid";
 
 export const login =
@@ -20,6 +20,7 @@ export const login =
       });
 
       dispatch({ type: ALERT, payload: { success: res.data.message } });
+      localStorage.setItem("logged", "milonGroup");
     } catch (err: any) {
       dispatch({ type: ALERT, payload: { errors: err.response.data.message } });
     }
@@ -34,9 +35,33 @@ export const register =
     try {
       dispatch({ type: ALERT, payload: { loading: true } });
       const res = await postAPI("/register", userRegister);
-      console.log(res.data.message);
+      dispatch({ type: AUTH, payload: res.data})
       dispatch({ type: ALERT, payload: { success: res.data.message } });
     } catch (err: any) {
       dispatch({ type: ALERT, payload: { errors: err.response.data.message } });
+    }
+  };
+
+export const refreshToken =
+  () => async (dispatch: Dispatch<IAuthType | IAlertType>) => {
+    const logged = localStorage.getItem("logged");
+    if (logged !== "milonGroup") return;
+    try {
+      dispatch({ type: ALERT, payload: { loading: false } });
+      const res = await getAPI("refresh_token");
+      dispatch({ type: AUTH, payload: res.data });
+    } catch (error: any) {
+      dispatch({ type: ALERT, payload: error.response.data.message });
+    }
+  };
+
+export const logOut =
+  () => async (dispatch: Dispatch<IAuthType | IAlertType>) => {
+    try {
+      localStorage.removeItem("logged");
+      getAPI("/logout");
+      window.location.href = "/";
+    } catch (error: any) {
+      dispatch({ type: ALERT, payload: error.response.data.message });
     }
   };

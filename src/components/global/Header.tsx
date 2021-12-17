@@ -1,11 +1,28 @@
-import { NavLink, } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { RootStore } from "../../utils/TypeScript";
+import { logOut } from "../../redux/actions/authAction";
 
 const Navbar = () => {
+  const { auth } = useSelector((state: RootStore) => state);
+  const dispatch = useDispatch();
+  //const { pathname } = useLocation();
 
-  
-  let page =   window.location.pathname
+  const unloginLinks = [
+    { label: "Login", path: "/login" },
+    { label: "Register", path: "/register" },
+  ];
 
+  const loginLinks = [
+    { label: "Home", path: "/" },
+    { label: "Forecasts", path: "/forecast" },
+  ];
 
+  const navLinks = auth.access_token ? loginLinks : unloginLinks;
+
+  // const isActive = (pn: string) => {
+  //   if (pn === pathname) return "active";
+  // };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -25,32 +42,36 @@ const Navbar = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav">
-            <li className="nav-item">
-              <NavLink className="nav-link active" aria-current="page" to="/">
-                Home
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/register">
-                Register
-              </NavLink>
-            </li>
-            {
-              page === "/"  ?   <li className="nav-item">
-              <a className="nav-link" href="#login">
-                Login
-              </a>
-            </li> : null
-            }
-          
-            {/* <li className="nav-item">
-                <NavLink className="nav-link" to="#">Pricing</NavLink>
+          <div className="navbarHeader">
+            <ul className="navbar-nav">
+              {navLinks?.map((link, index) => (
+                <li key={index} className="nav-item">
+                  <NavLink
+                    className="nav-link active"
+                    aria-current="page"
+                    to={link?.path}
+                  >
+                    {link?.label}
+                  </NavLink>
                 </li>
-                <li className="nav-item">
-                <NavLink className="nav-link disabled" to="#" tabindex="-1" aria-disabled="true">Disabled</NavLink>
-                </li> */}
-          </ul>
+              ))}
+            </ul>
+            {auth?.user && (
+              <ul className="navbar-nav">
+                <li>
+                  <NavLink
+                    className="nav-link active"
+                    aria-current="page"
+                    to="/"
+                    onClick={() => dispatch(logOut())}
+                  >
+                    Logout
+                  </NavLink>
+                </li>
+                <li className="nav-link active">{auth?.user?.lastName}</li>
+              </ul>
+            )}
+          </div>
         </div>
       </div>
     </nav>

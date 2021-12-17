@@ -1,5 +1,4 @@
 import React from "react";
-import Login from "../components/Login";
 
 const Home = () => {
   return (
@@ -19,7 +18,6 @@ const Home = () => {
           Welcome To CRM FORECAST
         </h2>
       </div>
-      <Login />
     </>
   );
 };
