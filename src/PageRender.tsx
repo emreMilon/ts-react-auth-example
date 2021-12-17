@@ -20,7 +20,7 @@ const PageRender = () => {
   let name = '';
 
   if(page){
-    name = id ? `${page}/[id]` : `${page}`
+    name = id ? `${page}/[id]`  : `${page}`
   }
 
   return generatePage(name)

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { register } from "../../redux/actions/authAction";
-import Alert from "../alert/Alert";
+import {Alert} from "../alert/Alert";
 import { InputChange, FormSubmit } from "../../utils/TypeScript";
 
 const RegisterForm = () => {

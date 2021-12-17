@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
-import { RootStore } from '../../utils/TypeScript'
+import { RootStore } from "../../utils/TypeScript";
 import Loading from "./Loading";
 import Toast from "./Toast";
 
-const Alert = () => {
+export const Alert = () => {
   const alert = useSelector((state: RootStore) => state.alert);
 
   return (
@@ -15,4 +15,10 @@ const Alert = () => {
   );
 };
 
-export default Alert;
+export const showErrMsg = (msg: string) => {
+  return <div className="errMsg">{msg}</div>;
+};
+
+export const showSuccessMsg = (msg: string) => {
+  return <div className="successMsg">{msg}</div>;
+};
