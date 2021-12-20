@@ -46,3 +46,14 @@ export interface ICheck {
   errMsg?: string[],
   errLength? : number
 }
+
+
+export interface ICustomer {
+  id: string;
+  customerName: string;
+  address: string;
+  telephone: string;
+  zip: number;
+  createdAt: string;
+  updatedAt: string;
+}

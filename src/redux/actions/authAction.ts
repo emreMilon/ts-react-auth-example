@@ -18,9 +18,10 @@ export const login =
         type: AUTH,
         payload: res.data,
       });
-
+    
       dispatch({ type: ALERT, payload: { success: res.data.message } });
-      localStorage.setItem("logged", "milonGroup");
+      localStorage.setItem("refresh", "milonGroup");
+      localStorage.setItem("logged", res.data.access_token)
     } catch (err: any) {
       dispatch({ type: ALERT, payload: { errors: err.response.data.message } });
     }
@@ -44,12 +45,13 @@ export const register =
 
 export const refreshToken =
   () => async (dispatch: Dispatch<IAuthType | IAlertType>) => {
-    const logged = localStorage.getItem("logged");
-    if (logged !== "milonGroup") return;
+    const refresh = localStorage.getItem("refresh");
+    if (refresh !== "milonGroup") return;
     try {
       dispatch({ type: ALERT, payload: { loading: false } });
       const res = await getAPI("refresh_token");
       dispatch({ type: AUTH, payload: res.data });
+      localStorage.setItem("logged", res.data.access_token);
     } catch (error: any) {
       dispatch({ type: ALERT, payload: error.response.data.message });
     }
@@ -59,9 +61,12 @@ export const logOut =
   () => async (dispatch: Dispatch<IAuthType | IAlertType>) => {
     try {
       localStorage.removeItem("logged");
+      localStorage.removeItem("refresh")
       getAPI("/logout");
       window.location.href = "/";
     } catch (error: any) {
       dispatch({ type: ALERT, payload: error.response.data.message });
     }
   };
+
+
