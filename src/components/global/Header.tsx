@@ -1,12 +1,16 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { RootStore } from "../../utils/TypeScript";
+import { IUser, RootStore } from "../../utils/TypeScript";
 import { logOut } from "../../redux/actions/authAction";
 
 const Navbar = () => {
   const { auth } = useSelector((state: RootStore) => state);
   const dispatch = useDispatch();
-  //const { pathname } = useLocation();
+  const data: IUser | any = auth?.user;
+
+  const userForecastLabel = data?.position === "Leiter" ? "Users" : "Forecasts";
+  const userForecastLink =
+    data?.position === "Leiter" ? "/users" : `users/${data?.userId}`;
 
   const unloginLinks = [
     { label: "Login", path: "/login" },
@@ -15,14 +19,10 @@ const Navbar = () => {
 
   const loginLinks = [
     { label: "Home", path: "/" },
-    { label: "Forecasts", path: "/forecast" },
+    { label: `${userForecastLabel}`, path: `${userForecastLink}` },
   ];
 
   const navLinks = auth.access_token ? loginLinks : unloginLinks;
-
-  // const isActive = (pn: string) => {
-  //   if (pn === pathname) return "active";
-  // };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">

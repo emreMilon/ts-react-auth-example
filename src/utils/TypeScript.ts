@@ -57,3 +57,15 @@ export interface ICustomer {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface IForecast {
+  forecastId: number;
+  userId: string;
+  customerId: string;
+  customerName: string;
+  customerAddress: string;
+  customerZip: number;
+  price: number;
+  createdAt: string;
+  updatedAt: string;
+}
