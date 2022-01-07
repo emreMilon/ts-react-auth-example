@@ -11,7 +11,7 @@ const Login = () => {
         <small className="row my-2 text-primary" style={{ cursor: "pointer" }}>
           <p>
             if you already have an account please
-            <Link to="/#login" className="col-6" style={{ color: "crimson" }}>
+            <Link to="/login" className="col-6" style={{ color: "crimson" }}>
               {` Login now`}
             </Link>
           </p>
